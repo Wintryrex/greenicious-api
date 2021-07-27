@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import './loaders/mongoose';
 import express from 'express';
 import food from './routes/food';
 

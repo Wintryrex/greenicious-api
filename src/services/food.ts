@@ -7,10 +7,15 @@ class FoodService {
     return items;
   }
 
-  async add(item: Food) {}
-  async get(id: string | number) {}
-  async update(id: string | number, item: Food) {}
-  async delete(id: string | number) {}
+  async add(item: Food): Promise<Food> {
+    const food = new FoodModel(item);
+    const result: Food = await food.save();
+    return result;
+  }
+
+  async get(id: string) {}
+  async update(id: string, item: Food) {}
+  async delete(id: string) {}
 }
 
 export default FoodService;

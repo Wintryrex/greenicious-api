@@ -13,9 +13,20 @@ class FoodService {
     return result;
   }
 
-  async get(id: string) {}
-  async update(id: string, item: Food) {}
-  async delete(id: string) {}
+  async get(id: string) {
+    const food = await FoodModel.findById(id);
+    return food;
+  }
+
+  async update(id: string, data: Food) {
+    const food = await FoodModel.findByIdAndUpdate(id, data);
+    return food;
+  }
+
+  async delete(id: string) {
+    const food = await FoodModel.findByIdAndDelete(id);
+    return food;
+  }
 }
 
 export default FoodService;

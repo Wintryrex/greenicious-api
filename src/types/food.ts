@@ -1,5 +1,5 @@
 interface Measurement {
-  unit: 'g' | 'L';
+  unit: string;
   amount: number;
 }
 

@@ -52,6 +52,17 @@ describe('get', () => {
   });
 });
 
+describe('search', () => {
+  it('Should return item containing the searched text in its title', async () => {
+    mockedModel.find = jest.fn().mockResolvedValue([item]);
+    const title = 'Original';
+    const items = await foodService.search(title);
+    items.forEach((data) => {
+      expect(data.title).toContain(title);
+    });
+  });
+});
+
 describe('update', () => {
   it.todo('Should fail if the provided data is not of type Food');
   it('Should return null if no item was found', async () => {

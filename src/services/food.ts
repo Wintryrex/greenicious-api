@@ -13,17 +13,24 @@ class FoodService {
     return result;
   }
 
-  async get(id: string) {
+  async get(id: string): Promise<Food | null> {
     const food = await FoodModel.findById(id);
     return food;
   }
 
-  async update(id: string, data: Food) {
+  async search(name: string): Promise<Food[]> {
+    const items = await FoodModel.find({
+      title: { $regex: name, $options: 'i' },
+    });
+    return items;
+  }
+
+  async update(id: string, data: Food): Promise<Food | null> {
     const food = await FoodModel.findByIdAndUpdate(id, data);
     return food;
   }
 
-  async delete(id: string) {
+  async delete(id: string): Promise<Food | null> {
     const food = await FoodModel.findByIdAndDelete(id);
     return food;
   }

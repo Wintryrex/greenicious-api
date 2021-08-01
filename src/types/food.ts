@@ -4,6 +4,7 @@ interface Measurement {
 }
 
 interface Food {
+  _id?: string;
   title: string;
   ingrediens: string;
   stores: string[];

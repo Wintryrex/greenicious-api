@@ -1,9 +1,9 @@
 import express from 'express';
 import FoodService from './../services/food';
-import Food from '../types/food';
 import HttpError from '../util/http-error';
 import error from '../util/error-message';
 import tryCatchHandler from '../middlewares/trycatch-handler';
+import foodSchema from '../schemas/food';
 
 const router = express.Router();
 
@@ -37,17 +37,12 @@ router.get(
 router.post(
   '/',
   tryCatchHandler(async (req, res) => {
-    const item: Food = {
-      title: req.body.title,
-      stores: req.body.stores,
-      ingrediens: req.body.ingrediens,
-      measurement: {
-        unit: req.body.measurement.unit,
-        amount: req.body.measurement.amount,
-      },
-    };
+    const validate = foodSchema.safeParse(req.body);
+    if (!validate.success) {
+      throw new HttpError(error.wrongInput.message, error.wrongInput.code);
+    }
     const service: FoodService = req.app.get('foodService');
-    const result = await service.add(item);
+    const result = await service.add(validate.data);
     if (!result._id) {
       throw new HttpError(error.idNotExist.message, error.idNotExist.code);
     }
@@ -59,17 +54,12 @@ router.post(
 router.put(
   '/:id',
   tryCatchHandler(async (req, res) => {
-    const item: Food = {
-      title: req.body.title,
-      stores: req.body.stores,
-      ingrediens: req.body.ingrediens,
-      measurement: {
-        unit: req.body.measurement.unit,
-        amount: req.body.measurement.amount,
-      },
-    };
+    const validate = foodSchema.safeParse(req.body);
+    if (!validate.success) {
+      throw new HttpError(error.wrongInput.message, error.wrongInput.code);
+    }
     const service: FoodService = req.app.get('foodService');
-    await service.update(req.params.id, item);
+    await service.update(req.params.id, validate.data);
     res.sendStatus(204);
   })
 );

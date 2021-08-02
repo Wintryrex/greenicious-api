@@ -28,9 +28,13 @@ router.get(
 router.get(
   '/:id',
   tryCatchHandler(async (req, res) => {
+    let status = 200;
     const service: FoodService = req.app.get('foodService');
     const result = await service.get(req.params.id);
-    res.status(200).send(result);
+    if (result === null) {
+      status = 404;
+    }
+    res.status(status).send(result);
   })
 );
 
@@ -54,22 +58,30 @@ router.post(
 router.put(
   '/:id',
   tryCatchHandler(async (req, res) => {
+    let code = 204;
     const validate = foodSchema.safeParse(req.body);
     if (!validate.success) {
       throw new HttpError(error.wrongInput.message, error.wrongInput.code);
     }
     const service: FoodService = req.app.get('foodService');
-    await service.update(req.params.id, validate.data);
-    res.sendStatus(204);
+    const result = await service.update(req.params.id, validate.data);
+    if (result === null) {
+      code = 404;
+    }
+    res.sendStatus(code);
   })
 );
 
 router.delete(
   '/:id',
   tryCatchHandler(async (req, res) => {
+    let code = 204;
     const service: FoodService = req.app.get('foodService');
-    await service.delete(req.params.id);
-    res.sendStatus(204);
+    const result = await service.delete(req.params.id);
+    if (result === null) {
+      code = 404;
+    }
+    res.sendStatus(code);
   })
 );
 

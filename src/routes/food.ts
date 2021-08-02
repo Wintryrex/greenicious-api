@@ -1,6 +1,8 @@
 import express from 'express';
 import FoodService from './../services/food';
 import Food from '../types/food';
+import HttpError from '../util/http-error';
+import error from '../util/error-message';
 
 const router = express.Router();
 
@@ -35,7 +37,7 @@ router.post('/', async (req, res) => {
   const service: FoodService = req.app.get('foodService');
   const result = await service.add(item);
   if (!result._id) {
-    throw new Error('Id not found');
+    throw new HttpError(error.idNotExist.message, error.idNotExist.code);
   }
   const location = req.originalUrl + result._id;
   res.set('Location', location).send(result).status(201);

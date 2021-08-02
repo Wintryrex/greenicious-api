@@ -9,7 +9,7 @@ const message = {
   },
   wrongInput: {
     message:
-      'Provided input is invalid. Please make sure that all the required input are provided.',
+      'Provided input is invalid. Please make sure that all the required input are provided and that no additional data is provided.',
     code: 400,
   },
 };

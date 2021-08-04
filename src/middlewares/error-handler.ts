@@ -6,7 +6,9 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   if (err instanceof HttpError) {
     res.status(err.statusCode).send(err.message);
   } else {
-    res.status(error.serverError.code).send(error.serverError.message);
+    res
+      .status(error.serverError.code)
+      .send({ errorMessage: error.serverError.message });
   }
   console.error(err);
 };

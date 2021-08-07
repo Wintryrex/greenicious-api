@@ -158,7 +158,7 @@ Greenicious is a RESTful API for plant based receipes and products. Since there 
     Connection: keep-alive
     Keep-Alive: timeout=5
 
-    Provided input is invalid. Please make sure that all the required input are provided and that no additional data is provided.
+    {errorMessage: Provided input is invalid. Please make sure that all the required input are provided and that no additional data is provided.}
 
 ### Modify a food product
 
@@ -184,7 +184,7 @@ Greenicious is a RESTful API for plant based receipes and products. Since there 
     Connection: keep-alive
     Keep-Alive: timeout=5
 
-    Provided input is invalid. Please make sure that all the required input are provided and that no additional data is provided.
+    {errorMessage: Provided input is invalid. Please make sure that all the required input are provided and that no additional data is provided.}
 
 OR
 
@@ -219,7 +219,7 @@ OR
     Connection: keep-alive
     Keep-Alive: timeout=5
 
-    Provided input is invalid. Please make sure that all the required input are provided and that no additional data is provided.
+    {errorMessage: Provided input is invalid. Please make sure that all the required input are provided and that no additional data is provided.}
 
 OR
 
